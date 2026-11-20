@@ -1,6 +1,7 @@
 """Core functionality, implemented one project milestone at a time."""
 
 from app.corpus import load_corpus
+from app.language_model import NGramLanguageModel
 
 # --- Milestone 1: Curate an anonymized corpus of administrative medical text.
 # Hint: Use text processing techniques to clean and prepare your corpus.
@@ -11,8 +12,9 @@ def milestone_1() -> list[list[str]]:
 
 # --- Milestone 2: Implement the n-gram language model and apply smoothing.
 # Hint: Implement the n-gram counting and probability calculation, then apply Laplace or Kneser-Ney smoothing.
-def milestone_2():  # TODO(milestone 2)
-    raise NotImplementedError("TODO(milestone 2)")
+def milestone_2() -> NGramLanguageModel:
+    """Train and return the n-gram model using the bundled corpus."""
+    return NGramLanguageModel().fit(milestone_1())
 
 
 # --- Milestone 3: Develop a text generation feature that suggests words based on input.

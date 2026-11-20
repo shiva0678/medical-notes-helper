@@ -16,7 +16,7 @@ Tick these off as you go, and commit after each one.
 
 - [x] **1. Curate an anonymized corpus of administrative medical text.**
       Hint: Use text processing techniques to clean and prepare your corpus.
-- [ ] **2. Implement the n-gram language model and apply smoothing.**  
+- [x] **2. Implement the n-gram language model and apply smoothing.**
       Hint: Implement the n-gram counting and probability calculation, then apply Laplace or Kneser-Ney smoothing.
 - [ ] **3. Develop a text generation feature that suggests words based on input.**  
       Hint: Develop a function that takes a sequence of words and returns the most probable next word.
@@ -43,6 +43,15 @@ non-identifying examples covering scheduling, registration, documentation,
 referrals, discharge, insurance, and billing. `app/corpus.py` lowercases text,
 separates punctuation, normalizes whitespace, tokenizes sentences, and removes
 empty or duplicate entries before the corpus is returned by `milestone_1()`.
+
+`app/language_model.py` implements unigram, bigram, and trigram frequency
+counters from tokenized sentences. `NGramLanguageModel.conditional_probability`
+uses the corresponding zero-, one-, or two-token context and Laplace
+add-one smoothing: `(count(context, word) + 1) / (count(context) + V)`,
+where `V` is the observed vocabulary size. Unknown words and contexts receive
+smoothed probabilities; an empty corpus has no vocabulary and returns `0.0`.
+`milestone_2()` trains the model on the bundled corpus. The prediction model
+does not call an external language model or AI API.
 
 ## Settings and secrets
 
