@@ -1,0 +1,82 @@
+the appointment was scheduled for monday morning
+the clinic confirmed the appointment by phone
+the appointment reminder was sent to the listed contact
+the scheduling desk offered an earlier appointment
+the visit was moved to the following week
+the patient requested an afternoon appointment
+the appointment time was updated in the calendar
+the front desk recorded the preferred appointment time
+the next available appointment was offered to the caller
+the clinic confirmed the visit location before arrival
+the appointment was canceled at the caller request
+the scheduling team documented the new visit time
+a follow up appointment was scheduled for next month
+the follow up visit was confirmed with the clinic
+the clinician requested a follow up appointment
+the follow up reminder was added to the schedule
+the next visit was planned after the review
+the office sent a follow up scheduling notice
+the follow up appointment was moved to friday
+the caller asked to confirm the next visit
+the care team documented the recommended follow up
+the follow up date was entered in the record
+the clinic offered two follow up time slots
+the patient selected the later follow up time
+the registration form was prepared for the visit
+the front desk verified the sample patient details
+the registration packet was provided at check in
+the contact preference was added to the registration record
+the registration team updated the mailing address
+the sample patient completed the intake form
+the clinic recorded the preferred contact method
+the registration record was reviewed for missing fields
+the front desk created a fictional sample profile
+the intake documents were received by the office
+the clinic confirmed the emergency contact entry
+the registration details were updated before the visit
+the visit summary was added to the medical record
+the staff member documented the appointment change
+the record was updated with the current contact details
+the administrative note was saved to the chart
+the document was filed under the visit date
+the office scanned the signed form into the record
+the chart was marked for administrative review
+the requested document was added to the clinic file
+the staff member checked the record for duplicate forms
+the visit information was documented in the chart
+the record correction was noted for later review
+the referral request was received by the clinic
+the referral document was sent to the receiving office
+the clinic confirmed receipt of the referral
+the referral status was updated in the tracking log
+the receiving office requested an additional form
+the referral packet was prepared for secure delivery
+the staff member recorded the referral date
+the clinic notified the caller that the referral was sent
+the referral information was added to the record
+the office followed up on the pending referral
+the referral coordination note was saved
+the destination clinic confirmed the appointment request
+the discharge summary was prepared for review
+the discharge document was added to the record
+the office recorded the discharge date
+the completed discharge form was sent to the care team
+the discharge paperwork was available at check out
+the staff member filed the discharge instructions
+the discharge documentation was marked complete
+the clinic confirmed that the summary was received
+the visit status was updated after discharge
+the administrative discharge checklist was completed
+the discharge copy was prepared for the sample patient
+the insurance details were entered into the account
+the billing team verified the insurance form was received
+the insurance information was updated before the visit
+the office requested an updated coverage document
+the billing statement was prepared for review
+the payment status was added to the account record
+the claims form was sent to the billing office
+the clinic recorded the billing question for follow up
+the insurance card copy was filed with the registration forms
+the account was marked for billing review
+the billing team confirmed receipt of the submitted form
+the coverage details were checked during registration

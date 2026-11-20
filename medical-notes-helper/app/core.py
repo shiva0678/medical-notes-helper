@@ -1,9 +1,12 @@
-"""Your code. One stub per milestone; build them in order and keep each one small."""
+"""Core functionality, implemented one project milestone at a time."""
+
+from app.corpus import load_corpus
 
 # --- Milestone 1: Curate an anonymized corpus of administrative medical text.
 # Hint: Use text processing techniques to clean and prepare your corpus.
-def milestone_1():  # TODO(milestone 1)
-    raise NotImplementedError("TODO(milestone 1)")
+def milestone_1() -> list[list[str]]:
+    """Return the bundled, cleaned synthetic administrative text corpus."""
+    return load_corpus()
 
 
 # --- Milestone 2: Implement the n-gram language model and apply smoothing.

@@ -14,7 +14,7 @@ This CLI tool assists clinic staff in drafting administrative medical notes by o
 
 Tick these off as you go, and commit after each one.
 
-- [ ] **1. Curate an anonymized corpus of administrative medical text.**  
+- [x] **1. Curate an anonymized corpus of administrative medical text.**
       Hint: Use text processing techniques to clean and prepare your corpus.
 - [ ] **2. Implement the n-gram language model and apply smoothing.**  
       Hint: Implement the n-gram counting and probability calculation, then apply Laplace or Kneser-Ney smoothing.
@@ -37,6 +37,12 @@ pytest
 
 Your work goes in `app/core.py` (one stub per milestone) and `tests/test_core.py`. The first tests pass already; they
 check the plumbing.
+
+The bundled `corpus/administrative_medical_sentences.txt` contains synthetic,
+non-identifying examples covering scheduling, registration, documentation,
+referrals, discharge, insurance, and billing. `app/corpus.py` lowercases text,
+separates punctuation, normalizes whitespace, tokenizes sentences, and removes
+empty or duplicate entries before the corpus is returned by `milestone_1()`.
 
 ## Settings and secrets
 
