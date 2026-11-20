@@ -1,7 +1,10 @@
 """Core functionality, implemented one project milestone at a time."""
 
+from collections.abc import Sequence
+
 from app.corpus import load_corpus
 from app.language_model import NGramLanguageModel
+from app.prediction import Suggestion, suggest_next_words
 
 # --- Milestone 1: Curate an anonymized corpus of administrative medical text.
 # Hint: Use text processing techniques to clean and prepare your corpus.
@@ -19,8 +22,14 @@ def milestone_2() -> NGramLanguageModel:
 
 # --- Milestone 3: Develop a text generation feature that suggests words based on input.
 # Hint: Develop a function that takes a sequence of words and returns the most probable next word.
-def milestone_3():  # TODO(milestone 3)
-    raise NotImplementedError("TODO(milestone 3)")
+def milestone_3(
+    text: str | Sequence[str],
+    top_k: int = 3,
+    model: NGramLanguageModel | None = None,
+) -> list[Suggestion]:
+    """Return next-word suggestions, training on the bundled corpus by default."""
+    trained_model = model if model is not None else milestone_2()
+    return suggest_next_words(trained_model, text, top_k)
 
 
 # --- Milestone 4: Create a CLI for users to interact with the suggestion engine.

@@ -18,7 +18,7 @@ Tick these off as you go, and commit after each one.
       Hint: Use text processing techniques to clean and prepare your corpus.
 - [x] **2. Implement the n-gram language model and apply smoothing.**
       Hint: Implement the n-gram counting and probability calculation, then apply Laplace or Kneser-Ney smoothing.
-- [ ] **3. Develop a text generation feature that suggests words based on input.**  
+- [x] **3. Develop a text generation feature that suggests words based on input.**
       Hint: Develop a function that takes a sequence of words and returns the most probable next word.
 - [ ] **4. Create a CLI for users to interact with the suggestion engine.**  
       Hint: Use Python's `argparse` or `click` libraries to build an interactive command-line interface.
@@ -52,6 +52,15 @@ where `V` is the observed vocabulary size. Unknown words and contexts receive
 smoothed probabilities; an empty corpus has no vocabulary and returns `0.0`.
 `milestone_2()` trains the model on the bundled corpus. The prediction model
 does not call an external language model or AI API.
+
+`app/prediction.py` uses observed trigram continuations first, then backs off
+to bigrams and unigrams when the longer context has no observed continuations.
+`suggest_next_words()` accepts either a sentence or token sequence and returns
+up to the requested number of `Suggestion` values, each containing a word and
+its conditional probability. Results are ordered by probability, with
+alphabetical tie-breaking, and only words observed in the selected context
+(or unigram corpus) are returned. `milestone_3()` loads the trained corpus
+model by default and also accepts an existing model.
 
 ## Settings and secrets
 
