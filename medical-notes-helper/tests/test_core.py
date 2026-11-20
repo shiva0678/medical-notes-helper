@@ -3,7 +3,7 @@
 import pytest
 
 # Milestone 1: Curate an anonymized corpus of administrative medical text.
-from app.core import milestone_1, milestone_2, milestone_3
+from app.core import milestone_1, milestone_2, milestone_3, milestone_4
 from app.corpus import preprocess_corpus, preprocess_sentence
 from app.language_model import NGramLanguageModel
 from app.prediction import Suggestion, suggest_next_words
@@ -261,8 +261,8 @@ def test_prediction_rejects_invalid_input_and_result_limit():
         suggest_next_words(model, "the patient", top_k=0)
 
 
-# Milestone 4: Create a CLI for users to interact with the suggestion engine.
-@pytest.mark.skip(reason="not started")
-def test_milestone_4():
-    raise NotImplementedError("write the test for milestone 4")
+def test_milestone_4_runs_the_cli_setup_check(capsys):
+    milestone_4(["hello"])
+
+    assert "is ready" in capsys.readouterr().out
 

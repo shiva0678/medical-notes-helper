@@ -2,73 +2,178 @@
 
 [![Built with askThili](https://ask.thili.ai/api/v1/public/projects/ckmxkb47xb/badge.svg)](https://ask.thili.ai/b/ckmxkb47xb)
 
-This CLI tool assists clinic staff in drafting administrative medical notes by offering next-word suggestions. By leveraging an n-gram language model trained on anonymized medical text, it aims to enhance consistency and efficiency in documentation, reducing the need for extensive manual typing.
+Medical Notes Helper is an educational command-line tool that helps clinic
+staff draft administrative note text by suggesting likely next words. It uses
+a small n-gram language model trained only on bundled synthetic examples.
+It is not a clinical decision tool. Do not enter real patient records or
+personally identifiable health information.
 
-## What you are building
+## Features
 
-**Goal.** You will build a command-line interface (CLI) tool that helps clinic staff draft administrative sections of medical notes by generating next-word suggestions, ensuring consistency and reducing manual typing. This tool will demonstrate the ability to generate text from a language model, providing context-aware suggestions.
+- Synthetic administrative corpus for scheduling, registration,
+  documentation, referrals, discharge, insurance, and billing.
+- In-project unigram, bigram, and trigram counting with Laplace smoothing.
+- Context-aware top-three or top-five word suggestions with probabilities.
+- Interactive sentence editing: accept a suggestion or enter new text.
+- Deterministic ranking and graceful handling of empty inputs, invalid choices,
+  Ctrl+C, and end-of-file.
+- No external language model or AI API is used for prediction.
 
-**Done when.** The project is complete when you have curated an anonymized corpus of administrative medical text, implemented and smoothed an n-gram language model, developed a feature to suggest words based on user input, and created a functional CLI for users to interact with the suggestion engine.
+## Technologies
 
-## Milestones
+- Python 3.12 (the code also runs on Python 3.13).
+- Python standard library for the CLI and n-gram model.
+- `pytest` for tests; `httpx` remains a dependency for the optional `app.llm`
+  helper and is not used by the prediction engine.
 
-Tick these off as you go, and commit after each one.
+## Project structure
 
-- [x] **1. Curate an anonymized corpus of administrative medical text.**
-      Hint: Use text processing techniques to clean and prepare your corpus.
-- [x] **2. Implement the n-gram language model and apply smoothing.**
-      Hint: Implement the n-gram counting and probability calculation, then apply Laplace or Kneser-Ney smoothing.
-- [x] **3. Develop a text generation feature that suggests words based on input.**
-      Hint: Develop a function that takes a sequence of words and returns the most probable next word.
-- [ ] **4. Create a CLI for users to interact with the suggestion engine.**  
-      Hint: Use Python's `argparse` or `click` libraries to build an interactive command-line interface.
-
-## Run it
-
-You need Python 3.12 and git.
-
-```bash
-python3.12 -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
-cp .env.example .env        # then choose a model; see the comments inside
-python -m app.cli hello
-pytest
+```text
+repository-root/
+├── .github/
+│   └── workflows/ci.yml
+└── medical-notes-helper/
+    ├── app/
+    │   ├── __init__.py
+    │   ├── cli.py
+    │   ├── core.py
+    │   ├── corpus.py
+    │   ├── language_model.py
+    │   ├── prediction.py
+    │   ├── llm.py
+    │   └── storage.py
+    ├── corpus/
+    │   └── administrative_medical_sentences.txt
+    ├── tests/
+    │   ├── test_cli.py
+    │   ├── test_core.py
+    │   └── test_smoke.py
+    ├── .env.example
+    ├── .gitignore
+    ├── pytest.ini
+    └── requirements.txt
 ```
 
-Your work goes in `app/core.py` (one stub per milestone) and `tests/test_core.py`. The first tests pass already; they
-check the plumbing.
+## Installation
 
-The bundled `corpus/administrative_medical_sentences.txt` contains synthetic,
-non-identifying examples covering scheduling, registration, documentation,
-referrals, discharge, insurance, and billing. `app/corpus.py` lowercases text,
-separates punctuation, normalizes whitespace, tokenizes sentences, and removes
-empty or duplicate entries before the corpus is returned by `milestone_1()`.
+Install Python 3.12 and Git, then clone the repository:
 
-`app/language_model.py` implements unigram, bigram, and trigram frequency
-counters from tokenized sentences. `NGramLanguageModel.conditional_probability`
-uses the corresponding zero-, one-, or two-token context and Laplace
-add-one smoothing: `(count(context, word) + 1) / (count(context) + V)`,
-where `V` is the observed vocabulary size. Unknown words and contexts receive
-smoothed probabilities; an empty corpus has no vocabulary and returns `0.0`.
-`milestone_2()` trains the model on the bundled corpus. The prediction model
-does not call an external language model or AI API.
+```powershell
+git clone https://github.com/shiva0678/medical-notes-helper.git
+Set-Location .\medical-notes-helper\medical-notes-helper
+```
 
-`app/prediction.py` uses observed trigram continuations first, then backs off
-to bigrams and unigrams when the longer context has no observed continuations.
-`suggest_next_words()` accepts either a sentence or token sequence and returns
-up to the requested number of `Suggestion` values, each containing a word and
-its conditional probability. Results are ordered by probability, with
-alphabetical tie-breaking, and only words observed in the selected context
-(or unigram corpus) are returned. `milestone_3()` loads the trained corpus
-model by default and also accepts an existing model.
+Create and activate a virtual environment, then install dependencies:
 
-## Settings and secrets
+```powershell
+py -3.12 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install -r requirements.txt
+```
 
-Model settings live in `.env`, which is ignored by git. **Never commit `.env` or paste a key into code.** If a key ever
-reaches GitHub, treat it as leaked and make a new one.
+On macOS or Linux, use the corresponding commands:
 
-## Stretch ideas
+```bash
+git clone https://github.com/shiva0678/medical-notes-helper.git
+cd medical-notes-helper/medical-notes-helper
+python3.12 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+```
 
-- Allow users to specify different n-gram sizes for the language model.
-- Implement a simple 'undo' feature for the last generated suggestion.
-- Add a feature to save and load the trained language model to avoid retraining on every run.
+The local n-gram CLI does not require a `.env` file or API credentials.
+`.env.example` documents optional settings for the separate `app.llm` helper.
+The `.env` file is ignored by Git.
+
+## Run the CLI
+
+From the project directory, start the interactive helper (three suggestions
+are shown by default):
+
+```bash
+python -m app.cli
+```
+
+To show five suggestions, or to explicitly start interactive mode:
+
+```bash
+python -m app.cli --top-k 5
+python -m app.cli run
+```
+
+The existing setup check is also available:
+
+```bash
+python -m app.cli hello
+```
+
+Example interaction (suggestions depend on the bundled corpus):
+
+```text
+Medical Notes Helper
+Welcome! Enter a sentence to get next-word suggestions.
+
+Enter your text: the patient
+
+Suggested next words:
+1. requested (Probability: 0.013)
+2. selected (Probability: 0.013)
+
+Choose a suggestion (1-2), enter new text, or type 'exit': 1
+
+Updated sentence: the patient requested
+
+Suggested next words:
+1. an (Probability: 0.013)
+
+Choose a suggestion (1-1), enter new text, or type 'exit': exit
+Thank you for using Medical Notes Helper!
+```
+
+Type a suggestion number to append that word and refresh suggestions. Enter
+different text to replace the current sentence, or type `exit` to quit. An
+empty sentence uses unigram suggestions; if the model has no available
+continuations, the CLI explains that and lets you enter new text. Ctrl+C and
+Ctrl+D/EOF end the session with a farewell message.
+
+## How the model works
+
+`app/corpus.py` loads and cleans the synthetic sentences. The
+`NGramLanguageModel` in `app/language_model.py` counts individual words,
+two-word sequences, and three-word sequences. The prediction engine in
+`app/prediction.py` selects observed continuations for the longest available
+context: trigram first, then bigram, then unigram. It ranks candidates by their
+conditional probability and returns only words observed in that context (or
+in the corpus for unigram fallback).
+
+For a word `w` and context `c`, the model applies Laplace add-one smoothing:
+
+```text
+P(w | c) = (count(c, w) + 1) / (count(c) + V)
+```
+
+Here, `V` is the number of unique words in the training corpus. Adding one to
+each count avoids zero probabilities for unseen words and contexts. Smoothing
+is used to score observed candidates; it does not add arbitrary unseen words
+to the suggestion list.
+
+## Tests
+
+Run the complete test suite from the project directory:
+
+```bash
+python -m pytest -q
+```
+
+GitHub Actions runs the test suite with Python 3.12 on pushes and pull requests.
+
+## GitHub
+
+Repository: <https://github.com/shiva0678/medical-notes-helper>
+
+## Project milestones
+
+- [x] Curate a synthetic administrative corpus.
+- [x] Implement the unigram, bigram, and trigram model with smoothing.
+- [x] Develop context-aware next-word prediction.
+- [x] Build the interactive CLI.

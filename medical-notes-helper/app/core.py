@@ -34,5 +34,8 @@ def milestone_3(
 
 # --- Milestone 4: Create a CLI for users to interact with the suggestion engine.
 # Hint: Use Python's `argparse` or `click` libraries to build an interactive command-line interface.
-def milestone_4():  # TODO(milestone 4)
-    raise NotImplementedError("TODO(milestone 4)")
+def milestone_4(argv: Sequence[str] | None = None) -> None:
+    """Run the interactive command-line application."""
+    from app.cli import main
+
+    main(argv)
